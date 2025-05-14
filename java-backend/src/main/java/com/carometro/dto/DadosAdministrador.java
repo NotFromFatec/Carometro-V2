@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 
 public record DadosAdministrador(
 		@NotBlank
-		int id,
+		String id,
 		String name,
 		String username,
 		String role) {

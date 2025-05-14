@@ -47,15 +47,15 @@ public class FakeController {
         };
 
         // Criar administradores
-        Administrador admin1 = new Administrador(0, "Administrador Um", "admin1", hashPassword.apply("admin1pass"), "Coordenador");
-        Administrador admin2 = new Administrador(0, "Administrador Dois", "admin2", hashPassword.apply("admin2pass"), "Professor");
+        Administrador admin1 = new Administrador(java.util.UUID.randomUUID().toString(), "Administrador Um", "admin1", hashPassword.apply("admin1pass"), "Coordenador");
+        Administrador admin2 = new Administrador(java.util.UUID.randomUUID().toString(), "Administrador Dois", "admin2", hashPassword.apply("admin2pass"), "Professor");
         administradorRepository.saveAll(Arrays.asList(admin1, admin2));
 
         // Criar cursos
-        Curso curso1 = new Curso(0, "Engenharia de Software");
-        Curso curso2 = new Curso(0, "Direito");
-        Curso curso3 = new Curso(0, "Medicina");
-        Curso curso4 = new Curso(0, "Arquitetura");
+        Curso curso1 = new Curso(java.util.UUID.randomUUID().toString(), "Engenharia de Software");
+        Curso curso2 = new Curso(java.util.UUID.randomUUID().toString(), "Direito");
+        Curso curso3 = new Curso(java.util.UUID.randomUUID().toString(), "Medicina");
+        Curso curso4 = new Curso(java.util.UUID.randomUUID().toString(), "Arquitetura");
         cursoRepository.saveAll(Arrays.asList(curso1, curso2, curso3, curso4));
 
         // Criar convites
@@ -109,15 +109,15 @@ public class FakeController {
         conviteRepository.saveAll(Arrays.asList(convite1, convite2, convite3, convite4, convite5, convite6, convite7, convite8));
 
         // Criar egressos verificados (usando os convites)
-        Egresso egresso1 = new Egresso(0, "João Silva", null, null, null, "Engenharia de Software", "2020", "Descrição pessoal do João", "Descrição carreira do João", true, "joaosilva", hashPassword.apply("senha123"), true, convite1.getCode(), List.of("linkedin.com/joao", "github.com/joao"));
-        Egresso egresso2 = new Egresso(0, "Maria Souza", null, null, null, "Direito", "2019", "Descrição pessoal da Maria", "Descrição carreira da Maria", true, "mariasouza", hashPassword.apply("senha456"), true, convite2.getCode(), List.of("linkedin.com/maria"));
-        Egresso egresso3 = new Egresso(0, "Carlos Pereira", null, null, null, "Medicina", "2018", "Descrição pessoal do Carlos", "Descrição carreira do Carlos", true, "carlosp", hashPassword.apply("senha789"), true, convite3.getCode(), List.of("linkedin.com/carlos"));
-        Egresso egresso4 = new Egresso(0, "Ana Lima", null, null, null, "Arquitetura", "2021", "Descrição pessoal da Ana", "Descrição carreira da Ana", true, "analima", hashPassword.apply("senha321"), true, convite4.getCode(), List.of("linkedin.com/ana"));
-        Egresso egresso5 = new Egresso(0, "Pedro Alves", null, null, null, "Engenharia de Software", "2022", "Descrição pessoal do Pedro", "Descrição carreira do Pedro", true, "pedroalves", hashPassword.apply("senha654"), true, convite5.getCode(), List.of("linkedin.com/pedro"));
-        Egresso egresso6 = new Egresso(0, "Juliana Costa", null, null, null, "Direito", "2023", "Descrição pessoal da Juliana", "Descrição carreira da Juliana", true, "julianacosta", hashPassword.apply("senha987"), true, convite6.getCode(), List.of("linkedin.com/juliana"));
+        Egresso egresso1 = new Egresso(java.util.UUID.randomUUID().toString(), "João Silva", null, null, null, "Engenharia de Software", "2020", "Descrição pessoal do João", "Descrição carreira do João", true, "joaosilva", hashPassword.apply("senha123"), true, convite1.getCode(), List.of("https://linkedin.com/joao", "https://github.com/joao"));
+        Egresso egresso2 = new Egresso(java.util.UUID.randomUUID().toString(), "Maria Souza", null, null, null, "Direito", "2019", "Descrição pessoal da Maria", "Descrição carreira da Maria", true, "mariasouza", hashPassword.apply("senha456"), true, convite2.getCode(), List.of("https://linkedin.com/maria"));
+        Egresso egresso3 = new Egresso(java.util.UUID.randomUUID().toString(), "Carlos Pereira", null, null, null, "Medicina", "2018", "Descrição pessoal do Carlos", "Descrição carreira do Carlos", true, "carlosp", hashPassword.apply("senha789"), true, convite3.getCode(), List.of("https://linkedin.com/carlos"));
+        Egresso egresso4 = new Egresso(java.util.UUID.randomUUID().toString(), "Ana Lima", null, null, null, "Arquitetura", "2021", "Descrição pessoal da Ana", "Descrição carreira da Ana", true, "analima", hashPassword.apply("senha321"), true, convite4.getCode(), List.of("https://linkedin.com/ana"));
+        Egresso egresso5 = new Egresso(java.util.UUID.randomUUID().toString(), "Pedro Alves", null, null, null, "Engenharia de Software", "2022", "Descrição pessoal do Pedro", "Descrição carreira do Pedro", true, "pedroalves", hashPassword.apply("senha654"), true, convite5.getCode(), List.of("https://linkedin.com/pedro"));
+        Egresso egresso6 = new Egresso(java.util.UUID.randomUUID().toString(), "Juliana Costa", null, null, null, "Direito", "2023", "Descrição pessoal da Juliana", "Descrição carreira da Juliana", true, "julianacosta", hashPassword.apply("senha987"), true, convite6.getCode(), List.of("https://linkedin.com/juliana"));
         // Criar egressos não verificados
-        Egresso egresso7 = new Egresso(0, "Lucas Rocha", null, null, null, "Medicina", "2024", "Descrição pessoal do Lucas", "Descrição carreira do Lucas", false, "lucasrocha", hashPassword.apply("senha111"), true, null, List.of("linkedin.com/lucas"));
-        Egresso egresso8 = new Egresso(0, "Fernanda Dias", null, null, null, "Arquitetura", "2024", "Descrição pessoal da Fernanda", "Descrição carreira da Fernanda", false, "fernandadias", hashPassword.apply("senha222"), true, null, List.of("linkedin.com/fernanda"));
+        Egresso egresso7 = new Egresso(java.util.UUID.randomUUID().toString(), "Lucas Rocha", null, null, null, "Medicina", "2024", "Descrição pessoal do Lucas", "Descrição carreira do Lucas", false, "lucasrocha", hashPassword.apply("senha111"), true, null, List.of("https://linkedin.com/lucas"));
+        Egresso egresso8 = new Egresso(java.util.UUID.randomUUID().toString(), "Fernanda Dias", null, null, null, "Arquitetura", "2024", "Descrição pessoal da Fernanda", "Descrição carreira da Fernanda", false, "fernandadias", hashPassword.apply("senha222"), true, null, List.of("https://linkedin.com/fernanda"));
         egressoRepository.saveAll(Arrays.asList(egresso1, egresso2, egresso3, egresso4, egresso5, egresso6, egresso7, egresso8));
 
         return ResponseEntity.ok("Banco populado com dados fake em português.");

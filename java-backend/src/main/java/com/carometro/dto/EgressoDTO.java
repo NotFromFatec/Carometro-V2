@@ -3,7 +3,7 @@ package com.carometro.dto;
 import java.util.List;
 
 public record EgressoDTO(
-    int id,
+    String id,
     String name,
     String profileImage,
     String faceImage,

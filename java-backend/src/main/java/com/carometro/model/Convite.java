@@ -29,6 +29,6 @@ public class Convite {
     private LocalDateTime createdAt;
     
     @Column(name = "created_by", nullable = false)
-    private Integer createdBy; // store only the admin id
+    private String createdBy; // store only the admin id as UUID string
 
 }

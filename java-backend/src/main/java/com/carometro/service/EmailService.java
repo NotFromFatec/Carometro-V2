@@ -34,7 +34,7 @@ public class EmailService {
         // 1. Validation
         Optional<Administrador> adminOpt = Optional.empty();
         try {
-            int adminId = Integer.parseInt(request.getAdminId());
+            String adminId = request.getAdminId();
             adminOpt = administradorRepository.findById(adminId);
         } catch (Exception e) {
             return new EmailSendResponseDTO("AdminId inválido.", null, "AdminId inválido");
@@ -63,7 +63,7 @@ public class EmailService {
             convite.setCode(code);
             convite.setUsed(false);
             convite.setCreatedAt(java.time.LocalDateTime.now());
-            convite.setCreatedBy(Integer.parseInt(request.getAdminId()));
+            convite.setCreatedBy(request.getAdminId());
             conviteRepository.save(convite);
 
             String inviteLink = baseUrl + "/create-account?invite=" + code;

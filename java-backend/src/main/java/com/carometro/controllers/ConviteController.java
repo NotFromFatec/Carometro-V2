@@ -46,16 +46,7 @@ public class ConviteController {
         if (adminIdObj == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Invalid request"));
         }
-        int adminId;
-        if (adminIdObj instanceof Number) {
-            adminId = ((Number) adminIdObj).intValue();
-        } else {
-            try {
-                adminId = Integer.parseInt(adminIdObj.toString().replace(".0", ""));
-            } catch (NumberFormatException e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Invalid adminId"));
-            }
-        }
+        String adminId = adminIdObj.toString();
         Optional<Administrador> adminOpc = administradorRepository.findById(adminId);
         if (!adminOpc.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "Admin not found"));
@@ -86,6 +77,7 @@ public class ConviteController {
 	}
 
 	// 14. Cancelar Código de Convite PUT
+	@SuppressWarnings("unchecked")
 	@PutMapping(value = "/api/v1/invites", consumes = { "application/json", "text/plain" })
 	public ResponseEntity<?> cancelarConvite(@RequestBody String body) {
         Map<String, String> codeJson = new Gson().fromJson(body, Map.class);

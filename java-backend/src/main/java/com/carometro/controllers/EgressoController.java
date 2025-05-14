@@ -67,6 +67,10 @@ public class EgressoController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
+        // Assign a UUID if not set
+        if (novoEgresso.getId() == null || novoEgresso.getId().isBlank()) {
+            novoEgresso.setId(java.util.UUID.randomUUID().toString());
+        }
         String inviteCode = novoEgresso.getInviteCode();
         if (inviteCode == null || inviteCode.isBlank()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -89,6 +93,7 @@ public class EgressoController {
 
     // 2. Login do Egresso POST
     @PostMapping(value = "/api/v1/login/egresso", consumes = { "application/json", "text/plain" })
+    @SuppressWarnings("unchecked")
     public ResponseEntity<EgressoDTO> loginEgresso(@RequestBody String body) {
         Map<String, String> logarComoEgresso;
         try {
@@ -130,7 +135,7 @@ public class EgressoController {
 
     // 4. Obter Egresso por ID GET
     @GetMapping("/api/v1/egressos/{id}")
-    public ResponseEntity<EgressoDTO> getEgressoById(@PathVariable int id) {
+    public ResponseEntity<EgressoDTO> getEgressoById(@PathVariable String id) {
         Optional<Egresso> encontro = Optional.ofNullable(egressoService.getEgressoById(id));
         if (encontro.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -141,7 +146,8 @@ public class EgressoController {
 
     // 6. Atualizar Egresso
     @PutMapping(value = "/api/v1/egressos/{id}", consumes = { "application/json", "text/plain" })
-    public ResponseEntity<EgressoDTO> atualizarEgresso(@PathVariable int id, @RequestBody String body) {
+    @SuppressWarnings("unchecked")
+    public ResponseEntity<EgressoDTO> atualizarEgresso(@PathVariable String id, @RequestBody String body) {
         Optional<Egresso> egressoOptional = Optional.ofNullable(egressoService.getEgressoById(id));
         if (egressoOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -195,7 +201,7 @@ public class EgressoController {
             egresso.setContactLinks((List<String>) atualizacoes.get("contactLinks")); // NOSONAR: unchecked
         if (atualizacoes.containsKey("passwordHash")) {
             String novaSenha = (String) atualizacoes.get("passwordHash");
-            if (novaSenha != null && !novaSenha.equals(egresso.getPasswordHash())) {
+            if (novaSenha != null && !novaSenha.isBlank() && !novaSenha.equals(egresso.getPasswordHash())) {
                 egresso.setPasswordHash(hashPassword(novaSenha));
             }
         }
@@ -205,7 +211,7 @@ public class EgressoController {
 
     // 7. Deletar Egresso
     @DeleteMapping("/api/v1/egressos/{id}")
-    public ResponseEntity<Void> deletarEgresso(@PathVariable int id) {
+    public ResponseEntity<Void> deletarEgresso(@PathVariable String id) {
         Optional<Egresso> egressoOptional = Optional.ofNullable(egressoService.getEgressoById(id));
         if (egressoOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -233,7 +239,7 @@ public class EgressoController {
         return str.startsWith("data:image/");
     }
 
-    private String saveBase64Image(String base64, String type, int egressoId) {
+    private String saveBase64Image(String base64, String type, String egressoId) {
         try {
             String[] parts = base64.split(",", 2);
             String meta = parts[0];

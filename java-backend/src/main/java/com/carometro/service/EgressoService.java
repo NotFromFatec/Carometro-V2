@@ -25,11 +25,11 @@ public class EgressoService {
         return repository.findAll();
     }
 
-    public Egresso getEgressoById(int id) {
+    public Egresso getEgressoById(String id) {
         return repository.getReferenceById(id);
     }
 
-    public void deleEgressoById(int id) {
+    public void deleEgressoById(String id) {
         repository.deleteById(id);
     }
 }

@@ -43,12 +43,17 @@ public class AdministradorController {
 		if (existente.isPresent()) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).build();
 		}
+		// Assign a UUID if not set
+		if (novoAdmin.getId() == null || novoAdmin.getId().isBlank()) {
+			novoAdmin.setId(java.util.UUID.randomUUID().toString());
+		}
 		novoAdmin.setPasswordHash(hashPassword(novoAdmin.getPasswordHash()));
 		Administrador salvo = administradorService.save(novoAdmin);
 		return ResponseEntity.status(HttpStatus.CREATED).body(toDTO(salvo));
 	}
 
 	// 9. Login de Administrador POST
+	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/api/v1/login/admin", consumes = { "application/json", "text/plain" })
 	public ResponseEntity<DadosAdministrador> loginAdministrador(@RequestBody String body) {
 		Map<String, String> logarComoAdm;
@@ -74,7 +79,7 @@ public class AdministradorController {
 
 	// 10. Obter Administrador por ID GET
 	@GetMapping("/api/v1/admins/{id}")
-	public ResponseEntity<DadosAdministrador> getAdministradorById(@PathVariable int id) {
+	public ResponseEntity<DadosAdministrador> getAdministradorById(@PathVariable String id) {
 		Optional<Administrador> encontroAdmById = administradorRepository.findById(id);
 		if (encontroAdmById.isPresent()) {
 			Administrador admin = encontroAdmById.get();

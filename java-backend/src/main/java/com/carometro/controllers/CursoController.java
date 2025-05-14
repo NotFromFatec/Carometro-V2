@@ -58,4 +58,8 @@ public class CursoController {
 		}
 	}
 
+	// If you add a POST endpoint for creating Curso, ensure to set id:
+	// if (novoCurso.getId() == null || novoCurso.getId().isBlank()) {
+	// novoCurso.setId(java.util.UUID.randomUUID().toString());
+	// }
 }

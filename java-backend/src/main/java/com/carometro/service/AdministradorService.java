@@ -12,7 +12,7 @@ public class AdministradorService {
 	@Autowired
 	private AdministradorRepository repository;
 	
-	public Administrador getAdministradorById(int id) {
+	public Administrador getAdministradorById(String id) {
 		return repository.getReferenceById(id);
 	}
 	
