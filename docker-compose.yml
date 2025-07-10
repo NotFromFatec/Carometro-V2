@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: bancofatec
+      MYSQL_DATABASE: banco_de_bagos_v5
+    ports:
+      - "3307:3306"
+    networks:
+      - appnet
+
+  app:
+    build: .
+    container_name: java_app
+    depends_on:
+      - mysql
+    networks:
+      - appnet
+    ports:
+      - "8080:8080"
+
+networks:
+  appnet:
